@@ -1,5 +1,7 @@
 package main
 
+var outputPath string
+
 var cf_Token string
 var domain string
 var ttl int

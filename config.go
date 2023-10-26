@@ -8,8 +8,8 @@ import (
 	"strings"
 )
 
-func loadConfig() bool {
-	file, err := os.Open("config.txt")
+func loadConfig(path string) bool {
+	file, err := os.Open(path)
 	if err != nil {
 		log.Fatalln(err.Error())
 		return false

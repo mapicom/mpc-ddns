@@ -86,6 +86,7 @@ func cf_UpdateRecord() bool {
 	ipAddr, err := png_getMyIP()
 	if err != nil {
 		log.Println("Failed to get my IP:", err.Error())
+		saveOutput("Failed to get my IP: " + err.Error())
 		return false
 	}
 	if cf_RecordId == "" {
@@ -111,6 +112,7 @@ func cf_UpdateRecord() bool {
 	response, err := cf_sendRequest(method, fmt.Sprintf("https://api.cloudflare.com/client/v4/zones/%s/dns_records%s", cf_ZoneId, urlAddition), request)
 	if err != nil {
 		log.Println("Failed to submit IP:", err.Error())
+		saveOutput("Failed to submit IP: " + err.Error())
 		return false
 	}
 	if cf_RecordId == "" {
@@ -118,6 +120,8 @@ func cf_UpdateRecord() bool {
 		log.Println("Record ID:", cf_RecordId)
 	}
 	lastIp = ipAddr
-	log.Printf("IP %s submitted at %s\n", ipAddr, time.Now().Format("15:04:05"))
+	output := fmt.Sprintf("IP %s submitted at %s", ipAddr, time.Now().Format("15:04:05"))
+	fmt.Println(output)
+	saveOutput(output)
 	return true
 }
